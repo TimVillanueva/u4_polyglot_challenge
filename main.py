@@ -1,3 +1,4 @@
+from math import sqrt
 # Challenge 1:  add_List
 
 # Prompt:
@@ -15,6 +16,18 @@
 #-----------------------------------------------
 # Solution Goes Here - >
 #-----------------------------------------------
+def add_list(*arr):
+    counter = 0
+    if arr == None:
+        return counter
+    for item in arr:
+        if type(item) == int or type(item) == float:
+            counter = counter + item
+        else: 
+            return 'NaN'
+    return counter
+
+#print(add_list(10, 5))
 
 
 
@@ -33,6 +46,19 @@
 # Solution Goes Here - >
 #-----------------------------------------------
 
+def remove_ends(string):
+    stringify= ''
+    arr = list(string)
+    if len(arr) < 3:
+        return print("not enough characters")
+    arr.pop(len(arr)-1)
+    arr.pop(0)
+    for chars in arr:
+        stringify += chars
+
+    return print(stringify)
+
+#remove_ends("dinosaur")
 
 
 # Challenge 3: is_palindrome
@@ -51,8 +77,21 @@
 #-----------------------------------------------
 # Solution Goes Here - >
 #-----------------------------------------------
+def is_palindrome(string):
+    stringify =''
+    new_string = string.lower()
+    new_string = new_string.replace(" ", "")
+    arr = list(new_string)
+    arr.reverse()
+    for chars in arr:
+        stringify += chars
 
+    if stringify == new_string:
+        return True
+    else:
+        return False
 
+#print(is_palindrome(" "))
 
 # Challenge 4: is_prime
 
@@ -69,7 +108,15 @@
 #-----------------------------------------------
 # Solution goes here ->
 #-----------------------------------------------
+def is_prime(n):
+    if n <=1:
+        return False
+    for x in range(2, int(sqrt(n))+1):
+        if (n % x == 0):
+            return False
+    return True
 
+# print(is_prime(100))
 
 
 
@@ -79,19 +126,36 @@
 
 # Your function should take the list and the user's homestate as arguments
 
-# shopping_cart = [ 
-#   {"item": "headphones", "price": 25},
-#   {"item": "speakers", "price": 40 },
-#   {"item": "microphone", "price": 70},
-#   {"item": "lamp", "price": 15 },
-#   {"item": "tower fan", "price": 35 },
-# ]
+shopping_cart = [ 
+    {"item": "headphones", "price": 25},
+    {"item": "speakers", "price": 40 },
+    {"item": "microphone", "price": 70},
+    {"item": "lamp", "price": 15 },
+    {"item": "tower fan", "price": 35 },
+]
 
 
 #-----------------------------------------------
 # Solution Goes Here ->
 #-----------------------------------------------
+def total_checkout_cost(cart, state):
+    subtotal = 0
+    tax=0
+    ten = ["HI", "AK", "TX", "FL"]
+    five = ["AL", "MS", "NV", "IL"]
 
+    for item in cart:
+        tax += (item["price"] * .085)
+        subtotal += (tax + item["price"])
+    
+    if state in ten:
+        subtotal += 10
+    elif state in five:
+        subtotal+= 5
+    
+    return (subtotal)
+
+#print(total_checkout_cost(shopping_cart, "CA"))
 
 # Challenge 6: fizz_buzz
 
@@ -109,9 +173,18 @@
 # Solution Goes Here ->
 #-----------------------------------------------
 
+def fizz_buzz():
+    for n in range(1,51):
+        if n % 3 == 0 and n % 5 == 0:
+            print("fizzbuzz")
+        elif n%3==0:
+            print("fizz")
+        elif n%5==0:
+            print("buzz")
+        else:
+            print(n)
 
-
-
+fizz_buzz()
 # Challenge 7 - Chessboard Creator
 
 # A grid is a perfect starting point for many games (Chess, battleships, Candy Crush!).
@@ -147,3 +220,15 @@
 #-----------------------------------------------
 # Solution Goes Here - >
 #-----------------------------------------------
+
+def gen_board(row, col):
+    bw = ['O', 'X']
+    l = [[bw[(j + i) % 2] for j in range(row)] for i in range(col)]
+    l.reverse()
+    return l
+
+def print_board(b):
+    for row in b:
+        print (row)
+
+print_board(gen_board(4, 3))
